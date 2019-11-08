@@ -10,11 +10,13 @@ const permitParams = (callback) => {
 
 export default (locale, callback, scope) => {
   permitParams(callback);
-  
+
   if (!global.Intl) {
-    require('intl')  
+    require('intl')
     loadIntl(locale);
   }
+
+  require('date-time-format-timezone'); // Polyfills timezone support in Intl.DateTimeFormat API
 
   loadTranslations(locale, callback, scope);
 };

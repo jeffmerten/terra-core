@@ -29,7 +29,8 @@
     "classnames": "^2.2.5",
     "intl": "^1.2.5",
     "prop-types": "^15.5.8",
-    "terra-doc-template": "^2.21.0"
+    "terra-doc-template": "^2.21.0",
+    "date-time-format-timezone": "^1.0.21"
   },
   "scripts": {
     "compile": "babel --root-mode upward src --out-dir lib --copy-files",
