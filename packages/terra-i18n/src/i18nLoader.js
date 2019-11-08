@@ -13,10 +13,9 @@ export default (locale, callback, scope) => {
 
   if (!global.Intl) {
     require('intl')
+    require('date-time-format-timezone'); // Polyfills timezone support in Intl.DateTimeFormat API
     loadIntl(locale);
   }
-
-  require('date-time-format-timezone'); // Polyfills timezone support in Intl.DateTimeFormat API
 
   loadTranslations(locale, callback, scope);
 };
