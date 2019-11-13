@@ -393,15 +393,14 @@ class Menu extends React.Component {
       return;
     }
 
-    activeOption.focus({ preventScroll: false });
-    // const dropdownRect = this.menu.parentNode.getBoundingClientRect();
-    // const optionRect = activeOption.getBoundingClientRect();
+    const dropdownRect = this.menu.parentNode.getBoundingClientRect();
+    const optionRect = activeOption.getBoundingClientRect();
 
-    // if (optionRect.top < dropdownRect.top) {
-    //   activeOption.scrollIntoView({ block: 'nearest' });
-    // } else if (optionRect.bottom > dropdownRect.bottom) {
-    //   activeOption.scrollIntoView(false);
-    // }
+    if (optionRect.top < dropdownRect.top) {
+      activeOption.scrollIntoView({ block: 'nearest' });
+    } else if (optionRect.bottom > dropdownRect.bottom) {
+      activeOption.scrollIntoView(false);
+    }
   }
 
   render() {

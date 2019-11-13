@@ -134,7 +134,7 @@ const defaultProps = {
   optionFilter: undefined,
   placeholder: undefined,
   required: false,
-  value: 'string',
+  value: undefined,
   variant: 'default',
 };
 
