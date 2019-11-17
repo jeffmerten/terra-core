@@ -219,7 +219,7 @@ class Frame extends React.Component {
     // Allows time for state update to render select menu DOM before shifting focus to it
     setTimeout(() => {
       if (document.querySelector(this.selectMenu)) {
-        document.querySelector(this.selectMenu).focus();
+        document.querySelector(this.selectMenu).focus({ preventScroll: true });
       }
     }, 10);
 

@@ -374,7 +374,7 @@ class Menu extends React.Component {
     const optionRect = activeOption.getBoundingClientRect();
 
     if (optionRect.top < dropdownRect.top) {
-      activeOption.scrollIntoView({ block: 'nearest' });
+      activeOption.scrollIntoView();
     } else if (optionRect.bottom > dropdownRect.bottom) {
       activeOption.scrollIntoView(false);
     }

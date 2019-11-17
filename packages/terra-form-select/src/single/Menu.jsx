@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
@@ -397,7 +398,7 @@ class Menu extends React.Component {
     const optionRect = activeOption.getBoundingClientRect();
 
     if (optionRect.top < dropdownRect.top) {
-      activeOption.scrollIntoView({ block: 'nearest' });
+      activeOption.scrollIntoView();
     } else if (optionRect.bottom > dropdownRect.bottom) {
       activeOption.scrollIntoView(false);
     }
