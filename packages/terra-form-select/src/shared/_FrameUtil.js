@@ -45,6 +45,7 @@ class FrameUtil {
       : undefined
     );
 
+    console.log('Dropdown Positioned');
     return {
       width,
       maxHeight: availableMaxHeight,

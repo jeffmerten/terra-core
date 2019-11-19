@@ -399,8 +399,11 @@ class Menu extends React.Component {
 
     if (optionRect.top < dropdownRect.top) {
       activeOption.scrollIntoView();
+      console.log('scrollIntoView - true');
     } else if (optionRect.bottom > dropdownRect.bottom) {
-      activeOption.scrollIntoView(false);
+      document.documentElement.scrollTop = activeOption.offsetTop;
+      console.log('scrollIntoView - false');
+      // activeOption.scrollIntoView(false);
     }
   }
 

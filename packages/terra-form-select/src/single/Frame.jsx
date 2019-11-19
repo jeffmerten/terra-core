@@ -191,37 +191,10 @@ class Frame extends React.Component {
   /**
    * Opens the dropdown.
    */
-  openDropdown(event) {
+  openDropdown() {
     if (this.state.isOpen || this.props.disabled) {
       return;
     }
-
-    /**
-     * Avoids focusing the input if the toggle button is used to open the select menu.
-     * This is to avoid an issue with VoiceOver on iOS where shifting to toggle button while the
-     * input is focused / onScreen keyboard is open unexpected focus shift when the onScreen
-     * keyboard is closed
-     */
-    if (event && event.target
-      && (event.target.hasAttribute('data-terra-form-select-toggle-button')
-      || event.target.hasAttribute('data-terra-form-select-toggle-button-icon'))) {
-      this.setState({ isOpen: true, isPositioned: false });
-
-      // Allows time for state update to render select menu DOM before shifting focus to it
-      setTimeout(() => {
-        if (document.querySelector(this.selectMenu)) {
-          document.querySelector(this.selectMenu).focus();
-        }
-      }, 10);
-      return;
-    }
-
-    // Allows time for state update to render select menu DOM before shifting focus to it
-    setTimeout(() => {
-      if (document.querySelector(this.selectMenu)) {
-        document.querySelector(this.selectMenu).focus({ preventScroll: true });
-      }
-    }, 10);
 
     this.setState({ isOpen: true, isPositioned: false });
   }
@@ -236,7 +209,14 @@ class Frame extends React.Component {
 
     const { dropdownAttrs, maxHeight } = this.props;
 
-    this.setState(FrameUtil.dropdownPosition(dropdownAttrs, this.select, this.dropdown, maxHeight));
+    const moveFocusToSelect = () => {
+      if (document.querySelector(this.selectMenu)) {
+        document.querySelector(this.selectMenu).focus();
+        console.log('menu - Focus()');
+      }
+    };
+
+    this.setState(FrameUtil.dropdownPosition(dropdownAttrs, this.select, this.dropdown, maxHeight), moveFocusToSelect);
   }
 
   /**
@@ -306,10 +286,10 @@ class Frame extends React.Component {
 
     if (keyCode === KeyCode.KEY_SPACE) {
       event.preventDefault();
-      this.openDropdown(event);
+      this.openDropdown();
     } else if (keyCode === KeyCode.KEY_UP || keyCode === KeyCode.KEY_DOWN) {
       event.preventDefault();
-      this.openDropdown(event);
+      this.openDropdown();
     } else if (keyCode === KeyCode.KEY_ESCAPE) {
       this.closeDropdown();
     }
@@ -317,10 +297,9 @@ class Frame extends React.Component {
 
   /**
    * Handles the mouse down events.
-   * @param {event} event - The mouse down event.
    */
-  handleMouseDown(event) {
-    this.openDropdown(event);
+  handleMouseDown() {
+    this.openDropdown();
   }
 
   /**
@@ -360,11 +339,11 @@ class Frame extends React.Component {
   /**
    * Toggles the dropdown open or closed.
    */
-  toggleDropdown(event) {
+  toggleDropdown() {
     if (this.state.isOpen) {
       this.closeDropdown();
     } else {
-      this.openDropdown(event);
+      this.openDropdown();
     }
   }
 
