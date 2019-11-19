@@ -413,7 +413,7 @@ class Menu extends React.Component {
        * is opened.
        */
       <ul
-        id="terra-select-menu"
+        id={this.props.id}
         role="listbox"
         className={cx('menu')}
         aria-label={this.props.intl.formatMessage({ id: 'Terra.form.select.menu' })}

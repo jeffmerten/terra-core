@@ -153,7 +153,7 @@ class Frame extends React.Component {
     this.handleToggleButtonMouseDown = this.handleToggleButtonMouseDown.bind(this);
     this.role = this.role.bind(this);
     this.visuallyHiddenComponent = React.createRef();
-    this.selectMenu = '#terra-select-menu';
+    this.selectMenu = uniqueid();
   }
 
   componentDidUpdate(previousProps, previousState) {
@@ -204,13 +204,14 @@ class Frame extends React.Component {
      */
     if (event && event.target
       && (event.target.hasAttribute('data-terra-form-select-toggle-button')
-      || event.target.hasAttribute('data-terra-form-select-toggle-button-icon'))) {
+        || event.target.hasAttribute('data-terra-form-select-toggle-button-icon'))) {
       this.setState({ isOpen: true, isPositioned: false });
 
       // Allows time for state update to render select menu DOM before shifting focus to it
       setTimeout(() => {
-        if (document.querySelector(this.selectMenu)) {
-          document.querySelector(this.selectMenu).focus();
+        const menu = document.getElementById(this.selectMenu);
+        if (menu) {
+          menu.focus();
         }
       }, 10);
       return;
@@ -218,8 +219,9 @@ class Frame extends React.Component {
 
     // Allows time for state update to render select menu DOM before shifting focus to it
     setTimeout(() => {
-      if (document.querySelector(this.selectMenu)) {
-        document.querySelector(this.selectMenu).focus();
+      const menu = document.getElementById(this.selectMenu);
+      if (menu) {
+        menu.focus();
       }
     }, 10);
 
@@ -272,12 +274,12 @@ class Frame extends React.Component {
       // https://github.com/mui-org/material-ui/blob/v3.9.3/packages/material-ui/src/MenuList/MenuList.js#L27
 
       setTimeout(() => {
-        if (document.querySelector(this.selectMenu) !== document.activeElement) {
+        if (document.getElementById(this.selectMenu) !== document.activeElement) {
           _onBlur();
         }
       }, 10);
-    // Modern browsers support event.relatedTarget
-    } else if (document.querySelector(this.selectMenu) !== event.relatedTarget) {
+      // Modern browsers support event.relatedTarget
+    } else if (document.getElementById(this.selectMenu) !== event.relatedTarget) {
       _onBlur();
     }
   }
@@ -470,6 +472,7 @@ class Frame extends React.Component {
     const ariaDescribedBy = customAriaDescribedbyIds ? `${descriptionId} ${customAriaDescribedbyIds}` : descriptionId;
 
     const menuProps = {
+      id: this.selectMenu,
       value,
       onDeselect,
       noResultContent,
@@ -487,13 +490,13 @@ class Frame extends React.Component {
         role={this.role()}
         aria-required={required}
         data-terra-select-combobox
-        aria-controls={!disabled && this.state.isOpen ? 'terra-select-menu' : undefined}
+        aria-controls={!disabled && this.state.isOpen ? this.selectMenu : undefined}
         aria-disabled={!!disabled}
         aria-expanded={!!disabled && !!this.state.isOpen}
         aria-haspopup={!disabled ? 'true' : undefined}
         aria-labelledby={ariaLabelledByIds(labelId, displayId, placeholderId)}
         aria-describedby={ariaDescribedBy}
-        aria-owns={this.state.isOpen ? 'terra-select-menu' : undefined}
+        aria-owns={this.state.isOpen ? this.selectMenu : undefined}
         className={selectClasses}
         onBlur={this.handleBlur}
         onFocus={this.handleFocus}
