@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///packages/terra-avatar/lib/terra-dev-site/test/avatar/avatar/ImageGap.test.scss"],"names":[],"mappings":"AAAA,6CAEI,qBAAsB","file":"336-d2205bb71ae4ff5bd520.css","sourcesContent":[":local {\n  .avatar-wrapper {\n    border: 5px solid #f00;\n  }\n}\n"]}
